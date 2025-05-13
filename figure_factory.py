@@ -1,27 +1,38 @@
-import abc
-
-
-class Figure(abc.ABC):
-    @abc.abstractmethod
-    def get_area(self):
-        pass
+import inspect
+from importlib import import_module
+from figure import Figure
+from typing import Type
 
 
 class FigureFactory:
-    figure_names = {}
+    figure_class_registry = []
 
     @staticmethod
-    def register_new_figure(figure_name, cls):
-        if not issubclass(cls, Figure):
-            raise TypeError(f"Specified class '{cls}' must be a subclass of the Figure parent.")
-        if figure_name in FigureFactory.figure_names:
-            raise ValueError(f"Figure type '{figure_name}' is already registered.")
-        FigureFactory.figure_names[figure_name] = cls
+    def __register_new_figure(in_cls):
+        FigureFactory.figure_class_registry.append(in_cls)
 
     @staticmethod
-    def create_new_figure(figure_name, *args):
-        cls = FigureFactory.figure_names.get(figure_name)
-        if cls is None:
-            raise ValueError(f"Unknown figure class: {cls}")
-        return cls(*args)
-    
+    def get_all_figure_classes(module_name: str) -> list[Type[Figure]] | None:
+        figure_classes = []
+        try:
+            module = import_module(module_name)
+            for name, obj in inspect.getmembers(module):
+                if inspect.isclass(obj) and issubclass(obj, Figure) and obj is not Figure:
+                    figure_classes.append(obj)
+        except ImportError:
+            print(f"Error: Module '{module_name}' not found.")
+            return None
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            return None
+        return figure_classes
+
+    @staticmethod
+    def create_new_figure(figure_class, *args) -> Type[Figure]:
+        if isinstance(figure_class, Figure):
+            raise ValueError(f"Unknown figure class: {figure_class}")
+
+        if figure_class not in FigureFactory.figure_class_registry:
+            FigureFactory.__register_new_figure(figure_class)
+            return figure_class(*args)
+        return figure_class(*args)

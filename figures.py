@@ -1,20 +1,25 @@
-import abc
 import math
-from figure_factory import Figure, FigureFactory
+from figure_factory import FigureFactory
+from figure import Figure
+from math import pi
 
 
 class Circle(Figure):
     def __init__(self, radius):
+        if type(radius) not in [int, float]:
+            raise TypeError("Radius should be a number.")
         if radius <= 0:
-            raise ValueError("Radius must be positive.")
+            raise ValueError("Radius must be greater than zero.")
         self.radius = radius
 
     def get_area(self):
-        return math.pi * self.radius ** 2
+        return pi * self.radius ** 2
 
 
 class Rectangle(Figure):
     def __init__(self, width, height):
+        if type(width or height) not in [int, float]:
+            raise TypeError("Parameters width and height should numbers.")
         if width <= 0 or height <= 0:
             raise ValueError("Width and height must be positive.")
         self.width = width
@@ -26,6 +31,8 @@ class Rectangle(Figure):
 
 class Triangle(Figure):
     def __init__(self, a, b, c):
+        if type(a or b or c) not in [int, float]:
+            raise TypeError("Parameters a,b,c should numbers.")
         if a <= 0 or b <= 0 or c <= 0 or a + b <= c or a + c <= b or b + c <= a:
             raise ValueError("Invalid triangle sides.")
         self.a, self.b, self.c = a, b, c
@@ -39,17 +46,14 @@ class Triangle(Figure):
         return math.isclose(sides[0] ** 2 + sides[1] ** 2, sides[2] ** 2, rel_tol=1e-9)
 
 
-# Регистрация новых типов фигур
-FigureFactory.register_new_figure("circle", Circle)
-FigureFactory.register_new_figure("rectangle", Rectangle)
-FigureFactory.register_new_figure("triangle", Triangle)
-
 # Создание фигур
-circle = FigureFactory.create_new_figure("circle", 5)
-rectangle = FigureFactory.create_new_figure("rectangle", 4, 6)
-triangle = FigureFactory.create_new_figure("triangle", 3, 4, 5)
+# figure_manager = FigureFactory()
+# circle = figure_manager.create_new_figure(Circle, 5)
+# rectangle = figure_manager.create_new_figure(Rectangle, 4, 6)
+# triangle = figure_manager.create_new_figure(Triangle, 3, 4, 5)
+
 
 # Вывод результата
-print(f"Площадь круга: {circle.get_area()}")
-print(f"Площадь прямоугольника: {rectangle.get_area()}")
-print(f"Площадь треугольника: {triangle.get_area()}\nТреугольник прямой? - {triangle.is_right_angled()}")
+# print(f"Площадь круга: {circle.get_area()}")
+# print(f"Площадь прямоугольника: {rectangle.get_area()}")
+# print(f"Площадь треугольника: {triangle.get_area()}\nТреугольник прямой? - {triangle.is_right_angled()}")
