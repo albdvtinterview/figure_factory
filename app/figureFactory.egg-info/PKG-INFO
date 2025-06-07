@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: figureFactory
+Version: 1.0.0
+Summary: Package is used for creating figures and calculating it's area
+Home-page: https://github.com/albdvtinterview/figure_factory
+Author: Albert Davtyan
+Author-email: albusdavtyanbledore@gmail.com
+License: MIT
+Classifier: License :: osi Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.12.1
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# Figure Factory
+A package used to create figures such as "Circle", "Rectangle" and "Triangle"
+to calculate it's area, also you can add custom figure class based on "Figure"
+abstract classes to control all the figure objects with the single "FigureFactory" object.
+
+## How to import
+Install all necessary modules from the package with import line:<br>
+**from figureFactory import Circle, Rectangle, Triangle, FigureFactory, Figure**
+
+## How to use
+After installing the package and importing module, use something like the following code for creating figures
+
+#### [Creating figures]
+**figure_manager = FigureFactory()**<br>
+**circle = figure_manager.create_new_figure(Circle, 5)**<br>
+**rectangle = figure_manager.create_new_figure(Rectangle, 4, 6)**<br>
+**triangle = figure_manager.create_new_figure(Triangle, 3, 4, 5)**<br>
+
+#### [Printing figure area]
+**print(f"Площадь круга: {circle.get_area()}")**<br>
+**print(f"Площадь прямоугольника: {rectangle.get_area()}")**<br>
+**print(f"Площадь треугольника: {triangle.get_area()}\nТреугольник прямой? - {triangle.is_right_angled()}")**<br>

@@ -1,0 +1,14 @@
+LICENSE.txt
+setup.py
+app/__init__.py
+app/figureFactory/__init__.py
+app/figureFactory.egg-info/PKG-INFO
+app/figureFactory.egg-info/SOURCES.txt
+app/figureFactory.egg-info/dependency_links.txt
+app/figureFactory.egg-info/top_level.txt
+app/figureFactory/src/__init__.py
+app/figureFactory/src/figure.py
+app/figureFactory/src/figure_factory.py
+app/figureFactory/src/figures.py
+app/figureFactory/test/__init__.py
+app/figureFactory/test/test_figure.py
