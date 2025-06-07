@@ -1,6 +1,7 @@
 import inspect
+import os
 from importlib import import_module
-from figure import Figure
+from app.figureFactory.src.figure import Figure
 from typing import Type
 
 
@@ -14,13 +15,14 @@ class FigureFactory:
     @staticmethod
     def get_all_figure_classes(module_name: str) -> list[Type[Figure]] | None:
         figure_classes = []
+        project_module_path = "figureFactory.src." + module_name
         try:
-            module = import_module(module_name)
+            module = import_module(project_module_path)
             for name, obj in inspect.getmembers(module):
                 if inspect.isclass(obj) and issubclass(obj, Figure) and obj is not Figure:
                     figure_classes.append(obj)
         except ImportError:
-            print(f"Error: Module '{module_name}' not found.")
+            print(f"Error: Module '{project_module_path}' not found.")
             return None
         except Exception as e:
             print(f"An unexpected error occurred: {e}")

@@ -1,6 +1,5 @@
 import math
-from figure_factory import FigureFactory
-from figure import Figure
+from app.figureFactory.src.figure import Figure
 from math import pi
 
 
@@ -18,7 +17,7 @@ class Circle(Figure):
 
 class Rectangle(Figure):
     def __init__(self, width, height):
-        if type(width or height) not in [int, float]:
+        if type(width) not in [int, float] or type(height) not in [int, float]:
             raise TypeError("Parameters width and height should numbers.")
         if width <= 0 or height <= 0:
             raise ValueError("Width and height must be positive.")
@@ -45,15 +44,3 @@ class Triangle(Figure):
         sides = sorted([self.a, self.b, self.c])
         return math.isclose(sides[0] ** 2 + sides[1] ** 2, sides[2] ** 2, rel_tol=1e-9)
 
-
-# Создание фигур
-# figure_manager = FigureFactory()
-# circle = figure_manager.create_new_figure(Circle, 5)
-# rectangle = figure_manager.create_new_figure(Rectangle, 4, 6)
-# triangle = figure_manager.create_new_figure(Triangle, 3, 4, 5)
-
-
-# Вывод результата
-# print(f"Площадь круга: {circle.get_area()}")
-# print(f"Площадь прямоугольника: {rectangle.get_area()}")
-# print(f"Площадь треугольника: {triangle.get_area()}\nТреугольник прямой? - {triangle.is_right_angled()}")

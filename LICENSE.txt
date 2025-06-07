@@ -1,0 +1,4 @@
+MIL License
+
+The package was build with the command from the root folder "figureFactory":
+> python3 setup.py bdist_wheel sdist

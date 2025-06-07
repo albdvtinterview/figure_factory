@@ -1,9 +1,9 @@
 import unittest
 from typing import List, Type
-from figure_factory import FigureFactory
-from figure import Figure
+from app.figureFactory.src.figure_factory import FigureFactory
+from app.figureFactory.src.figure import Figure
 from math import pi
-from figures import Circle, Rectangle, Triangle
+from app.figureFactory.src.figures import Circle, Rectangle, Triangle
 
 
 class TestFigureFactory(unittest.TestCase):
