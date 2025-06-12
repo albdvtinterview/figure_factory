@@ -1,5 +1,4 @@
 import inspect
-import os
 from importlib import import_module
 from app.figureFactory.src.figure import Figure
 from typing import Type
@@ -30,11 +29,9 @@ class FigureFactory:
         return figure_classes
 
     @staticmethod
-    def create_new_figure(figure_class, *args) -> Type[Figure]:
+    def create_new_figure(figure_class, *args):
         if isinstance(figure_class, Figure):
             raise ValueError(f"Unknown figure class: {figure_class}")
 
-        if figure_class not in FigureFactory.figure_class_registry:
-            FigureFactory.__register_new_figure(figure_class)
-            return figure_class(*args)
+        FigureFactory.__register_new_figure(figure_class)
         return figure_class(*args)
